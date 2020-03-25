@@ -37,5 +37,12 @@ def category_game_finished(subcategory, score):
         return "high score is " + str(high_score) + " your score is: " + str(score), status.HTTP_200_OK
 
 
+@app.route("/oauth", methods=['GET', 'POST', 'PUT'])
+def oauth_magento_keys():
+    print(request.data)
+
+    return str(0), status.HTTP_200_OK
+
+
 if __name__ == "__main__":
     app.run(debug=True)
