@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cbf692dc-1b09-4976-8c70-f5e4151f96b1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_new.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/oauth_web_api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/game_server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/game_server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/oauth_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/oauth_1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/oauth_web_api.py" beforeDir="false" afterPath="$PROJECT_DIR$/oauth_web_api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.py" beforeDir="false" afterPath="$PROJECT_DIR$/server.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,7 +35,6 @@
   <component name="ProjectId" id="1Zc6QcBR9ehq4ipeaGpvohdSq7k" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
@@ -48,7 +43,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="RunManager" selected="Python.oauth_web_api">
+  <component name="RunManager" selected="Python.server">
     <configuration name="oauth_new" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="game_server" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -141,38 +136,46 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2578" y="160" width="642" height="761" key="#server/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585128740725" />
-    <state width="1377" height="243" key="GridCell.Tab.0.bottom" timestamp="1585146203423">
+    <state x="2527" y="83" width="696" height="847" key="CommitChangelistDialog2" timestamp="1585234218896">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="243" key="GridCell.Tab.0.bottom/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585146203423" />
-    <state width="1377" height="243" key="GridCell.Tab.0.center" timestamp="1585146203423">
+    <state x="2527" y="83" width="696" height="847" key="CommitChangelistDialog2/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585234218896" />
+    <state width="1897" height="229" key="GridCell.Tab.0.bottom" timestamp="1586425475293">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="243" key="GridCell.Tab.0.center/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585146203423" />
-    <state width="1377" height="243" key="GridCell.Tab.0.left" timestamp="1585146203423">
+    <state width="1897" height="243" key="GridCell.Tab.0.bottom/0.27.1920.988/1920.0.1920.1080@0.27.1920.988" timestamp="1585238263072" />
+    <state width="1897" height="229" key="GridCell.Tab.0.bottom/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1586425475293" />
+    <state width="1897" height="229" key="GridCell.Tab.0.center" timestamp="1586425475293">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="243" key="GridCell.Tab.0.left/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585146203423" />
-    <state width="1377" height="243" key="GridCell.Tab.0.right" timestamp="1585146203423">
+    <state width="1897" height="243" key="GridCell.Tab.0.center/0.27.1920.988/1920.0.1920.1080@0.27.1920.988" timestamp="1585238263072" />
+    <state width="1897" height="229" key="GridCell.Tab.0.center/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1586425475293" />
+    <state width="1897" height="229" key="GridCell.Tab.0.left" timestamp="1586425475293">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="243" key="GridCell.Tab.0.right/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585146203423" />
-    <state width="1377" height="301" key="GridCell.Tab.1.bottom" timestamp="1585140705570">
+    <state width="1897" height="243" key="GridCell.Tab.0.left/0.27.1920.988/1920.0.1920.1080@0.27.1920.988" timestamp="1585238263072" />
+    <state width="1897" height="229" key="GridCell.Tab.0.left/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1586425475293" />
+    <state width="1897" height="229" key="GridCell.Tab.0.right" timestamp="1586425475293">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="301" key="GridCell.Tab.1.bottom/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585140705570" />
-    <state width="1377" height="301" key="GridCell.Tab.1.center" timestamp="1585140705570">
+    <state width="1897" height="243" key="GridCell.Tab.0.right/0.27.1920.988/1920.0.1920.1080@0.27.1920.988" timestamp="1585238263072" />
+    <state width="1897" height="229" key="GridCell.Tab.0.right/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1586425475293" />
+    <state width="1377" height="301" key="GridCell.Tab.1.bottom" timestamp="1585153070148">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="301" key="GridCell.Tab.1.center/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585140705570" />
-    <state width="1377" height="301" key="GridCell.Tab.1.left" timestamp="1585140705570">
+    <state width="1377" height="301" key="GridCell.Tab.1.bottom/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585153070148" />
+    <state width="1377" height="301" key="GridCell.Tab.1.center" timestamp="1585153070148">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="301" key="GridCell.Tab.1.left/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585140705570" />
-    <state width="1377" height="301" key="GridCell.Tab.1.right" timestamp="1585140705570">
+    <state width="1377" height="301" key="GridCell.Tab.1.center/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585153070148" />
+    <state width="1377" height="301" key="GridCell.Tab.1.left" timestamp="1585153070148">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1377" height="301" key="GridCell.Tab.1.right/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585140705570" />
+    <state width="1377" height="301" key="GridCell.Tab.1.left/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585153070148" />
+    <state width="1377" height="301" key="GridCell.Tab.1.right" timestamp="1585153070148">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1377" height="301" key="GridCell.Tab.1.right/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585153070148" />
     <state x="2455" y="183" key="SettingsEditor" timestamp="1585126054219">
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
@@ -181,5 +184,9 @@
       <screen x="1920" y="0" width="1920" height="1080" />
     </state>
     <state x="2622" y="375" key="com.intellij.ide.util.TipDialog/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585126035343" />
+    <state x="2339" y="87" width="863" height="885" key="find.popup" timestamp="1585215502179">
+      <screen x="1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="2339" y="87" width="863" height="885" key="find.popup/0.27.1920.988/1920.0.1920.1080@1920.0.1920.1080" timestamp="1585215502179" />
   </component>
 </project>
