@@ -56,19 +56,19 @@ def category_game_finished_add_to_cart(subcategory, score, cart_id):
         print(request.environ['HTTP_ORIGIN'])
 
     if subcategory != 'test':
-        # subcategory moet naar de database gecheckt worden, vervolgens de origin controleren. dan user etc.
         return status.HTTP_405_METHOD_NOT_ALLOWED
+        # subcategory moet naar de database gecheckt worden, vervolgens de origin controleren. dan user etc.
     else:
         if score > 100:
             high_score = score
             coupon = m2_api.sendCouponRequest()
             if coupon == "":
-                return '-1', status.HTTP_200_OK
+                return '-1', status.HTTP_204_NO_CONTENT
             else:
                 m2_api.addCouponToCart(cart_id, coupon)
                 return str(coupon), status.HTTP_201_CREATED
         else:
-            return '-1', status.HTTP_200_OK
+            return '-1', status.HTTP_204_NO_CONTENT
 
 
 @app.route("/oauth", methods=['GET', 'POST', 'PUT'])

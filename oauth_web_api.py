@@ -91,5 +91,11 @@ def addCouponToCart(cart_id, coupon_code):
     print(r.content)
 
 
+def getCartItems(cart_id):
+    request_token_url = base_request_url + 'carts/' + cart_id
+
+    r = requests.put(url=request_token_url, auth=oauth, headers={'Content-Type': 'application/json'})
+    return r.content
+
 # sendCouponRequest()
 # addCouponToCart('GDhzkXMSQVYT9kchcpc3QcCjkDF3txUD', '40U2OX51368B')
