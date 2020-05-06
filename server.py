@@ -1,10 +1,8 @@
 import oauth_web_api
-import json
 
-from flask import request, url_for
+from flask import request
 from flask_cors import CORS
-from flask_api import FlaskAPI, status, exceptions
-from datetime import datetime
+from flask_api import FlaskAPI, status
 
 app = FlaskAPI(__name__)
 CORS(app)
@@ -35,7 +33,6 @@ def category_game_finished(subcategory, score):
         print(request.environ['HTTP_ORIGIN'])
 
     if subcategory != 'test':
-        # subcategory moet naar de database gecheckt worden, vervolgens de origin controleren. dan user etc.
         return status.HTTP_405_METHOD_NOT_ALLOWED
     else:
         if score > 100:
@@ -55,8 +52,7 @@ def category_game_finished_add_to_cart(subcategory, score, cart_id):
     if request.environ['HTTP_ORIGIN'] is not None:
         print(request.environ['HTTP_ORIGIN'])
 
-    if subcategory != 'test':
-        # subcategory moet naar de database gecheckt worden, vervolgens de origin controleren. dan user etc.
+    if subcategory != 'didi':
         return status.HTTP_405_METHOD_NOT_ALLOWED
     else:
         if score > 100:
@@ -65,17 +61,26 @@ def category_game_finished_add_to_cart(subcategory, score, cart_id):
             if coupon == "":
                 return '-1', status.HTTP_200_OK
             else:
-                m2_api.addCouponToCart(cart_id, coupon)
-                return str(coupon), status.HTTP_201_CREATED
+                if m2_api.addCouponToCart(cart_id, coupon):
+                    return str(coupon), status.HTTP_201_CREATED
+                else:
+                    return str(coupon), status.HTTP_304_NOT_MODIFIED
         else:
             return '-1', status.HTTP_200_OK
 
 
-@app.route("/oauth", methods=['GET', 'POST', 'PUT'])
-def oauth_magento_keys():
-    print(request.data)
+def get_code_id_corresponding_to_score(score, shop):
+    # db score ophalen voor code_id
+    return
 
-    return str(0), status.HTTP_200_OK
+
+def insert_score_in_db(score, shop):
+    # score inserten in db
+    return
+
+
+def insert_coupon_with_cart_id_in_db(coupon_id, cart_id, shop):
+    return
 
 
 if __name__ == "__main__":

@@ -15,23 +15,9 @@ oauth = OAuth1(client_key, client_secret=client_secret, resource_owner_key=resou
 # request_token_url = 'http://127.0.0.1:8080/rest/V1/coupons/generate'
 # request_token_url = 'http://127.0.0.1:8080/rest/V1/guest-carts/GDhzkXMSQVYT9kchcpc3QcCjkDF3txUD/coupons/40U2OX51368B'
 
-x = {
-    "couponSpec":
-    {
-        "rule_id": 1,
-        "format": "string",
-        "quantity": 1,
-        "length": 0,
-        "prefix": "string",
-        "suffix": "string",
-        "delimiter_at_every": 0,
-        "delimiter": "string",
-        "extension_attributes": { }
-    }
-}
-
 
 def sendCouponRequest():
+    # rule_id uit db
     code = {
         "couponSpec": {
             "rule_id": 97,
@@ -44,19 +30,6 @@ def sendCouponRequest():
             "delimiter": "",
             "extension_attributes": {}
         }
-    }
-
-    ccode = {
-      "giftCardAccountData": {
-        "gift_cards": [
-          "40U2OX51368B"
-        ],
-        "gift_cards_amount": 0,
-        "base_gift_cards_amount": 0,
-        "gift_cards_amount_used": 0,
-        "base_gift_cards_amount_used": 0,
-        "extension_attributes": {}
-      }
     }
 
     coupon_link = 'coupons/generate'
@@ -88,8 +61,5 @@ def addCouponToCart(cart_id, coupon_code):
 
     r = requests.put(url=request_token_url, auth=oauth, headers={'Content-Type': 'application/json'})
 
-    print(r.content)
-
-
-# sendCouponRequest()
-# addCouponToCart('GDhzkXMSQVYT9kchcpc3QcCjkDF3txUD', '40U2OX51368B')
+    if r.content:
+        return True
