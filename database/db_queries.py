@@ -15,7 +15,7 @@ def get_coupon_id_webshop(http_origin, shop, score):
     db_connection.closeConnection(conn)
 
     if catalog_coupon_id is not None:
-        return shop_data[0], catalog_coupon_id
+        return shop_data + catalog_coupon_id
     else:
         return None
 
