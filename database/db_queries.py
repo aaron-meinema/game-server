@@ -5,7 +5,7 @@ def get_coupon_id_webshop(http_origin, shop, score):
     conn = db_connection.getConnection()
     cursor = conn.cursor()
 
-    shop_data = select_shop_info(cursor, http_origin, shop)
+    shop_data = select_shop_info(http_origin, shop)
 
     if shop_data is None:
         return None
@@ -20,7 +20,9 @@ def get_coupon_id_webshop(http_origin, shop, score):
         return None
 
 
-def select_shop_info(cursor, http_origin, shop):
+def select_shop_info(http_origin, shop):
+    conn = db_connection.getConnection()
+    cursor = conn.cursor()
     get_shop = ("SELECT id, resource_owner_key, resource_owner_secret, client_key, client_secret "
                 "FROM shop "
                 "WHERE game_origin = %s AND name = %s")
@@ -51,7 +53,7 @@ def select_coupon_with_cart_id(cart_id, shop_id):
     cursor = conn.cursor()
 
     get_couponcode = ("SELECT coupon_code "
-                      "FROM use_cart "
+                      "FROM used_cart "
                       "WHERE cart_id = %s AND shop_id = %s")
 
     cart_shop_id = (cart_id, shop_id)
@@ -69,25 +71,24 @@ def select_coupon_with_cart_id(cart_id, shop_id):
 def insert_score_with_shop(score, shop_id):
     conn = db_connection.getConnection()
     cursor = conn.cursor()
-
+    print(score, shop_id)
     insert_score = ("INSERT INTO high_score (score, shop_id) "
                     "VALUES (%s, %s)")
     insert_values = (score, shop_id)
 
     cursor.execute(insert_score, insert_values)
-    db_connection.closeConnection(conn)
+    db_connection.closeInsertConnection(conn)
 
 
 def insert_cart_id_with_coupon(cart_id, shop_id, coupon_code, automatic_added):
     conn = db_connection.getConnection()
     cursor = conn.cursor()
+    print(cart_id, coupon_code)
 
     insert_cart_id = ("INSERT INTO used_cart (cart_id, shop_id, coupon_code, automatic_added)"
                       "VALUES (%s, %s, %s, %s)")
     insert_values = (cart_id, shop_id, coupon_code, automatic_added)
 
     cursor.execute(insert_cart_id, insert_values)
-    db_connection.closeConnection(conn)
+    db_connection.closeInsertConnection(conn)
 
-
-get_coupon_id_webshop("http://localhost:4000", "didi", -1)

@@ -5,7 +5,7 @@ from mysql.connector import errorcode
 def getConnection():
     try:
         cnx = mysql.connector.connect(user='root',
-                                    database='gamification-webshop')
+                                    database='gamificationwebshop')
     except mysql.connector.Error as err:
         if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
             print("Something is wrong with your user name or password")
@@ -18,4 +18,9 @@ def getConnection():
 
 
 def closeConnection(connection):
+    connection.close()
+
+
+def closeInsertConnection(connection):
+    connection.commit()
     connection.close()
