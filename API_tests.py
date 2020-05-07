@@ -25,8 +25,8 @@ def test_category_game_finished_add_to_cart_low_score_response_20():
 
 
 def test_category_game_finished_add_to_cart_coupon_added_to_cart():
-    response = requests.post('http://localhost:3000/didi/500/4')
-    cart_items = m2_api.getCartItems('4')
+    response = requests.post('http://localhost:3000/didi/500/20')
+    cart_items = m2_api.getCartItems('20')
     # opzoeken wat de query hiervoor is
     assert cart_items.currency
 

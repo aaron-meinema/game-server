@@ -1,4 +1,5 @@
 import oauth_web_api
+import json
 import database.db_queries as db
 
 from flask import request
@@ -21,29 +22,29 @@ def category_game_finished_add_to_cart(shop, score, cart_id):
                 return '-1', status.HTTP_403_FORBIDDEN
             elif isinstance(coupon, str):
                 if add_coupon_to_cart(m2_api, coupon, cart_id, shop_id):
-                    return "code added", status.HTTP_201_CREATED
+                    return json.dumps({"code": "added"}), status.HTTP_201_CREATED
                 else:
-                    return str(coupon), status.HTTP_200_OK
+                    return json.dumps({"code": str(coupon)}), status.HTTP_200_OK
             else:
-                return str(coupon[0]), status.HTTP_200_OK
+                return json.dumps({"code": str(coupon[0])}), status.HTTP_200_OK
 
     else:
-        return status.HTTP_403_FORBIDDEN
+        return json.dumps({"code": "not allowed"}), status.HTTP_403_FORBIDDEN
 
 
 @app.route("/<string:shop>/coupon/<string:cart_id>", methods=['GET'])
 def get_coupon_in_cart(shop, cart_id):
-    if request.environ['HTTP_ORIGIN'] is not None:
-        shop_id, res_owner_key, res_owner_secret, client_key, client_secret = \
-            get_shop_data(shop, request.environ['HTTP_ORIGIN'])
+    shop_id, res_owner_key, res_owner_secret, client_key, client_secret = \
+        get_shop_data(shop, request.environ['HTTP_ORIGIN'])
+    if shop_id is not None:
         m2_api = oauth_web_api.OauthWebAPI(res_owner_key, res_owner_secret, client_key, client_secret)
         coupon_code = check_cart_id_for_coupon(cart_id, shop_id, m2_api)
         if coupon_code is not None:
-            return str(coupon_code), status.HTTP_409_CONFLICT
+            return json.dumps({"cart_coupon": str(coupon_code)}), status.HTTP_409_CONFLICT
         else:
-            return "ok", status.HTTP_200_OK
+            return json.dumps({"cart_coupon": "empty"}), status.HTTP_200_OK
     else:
-        return status.HTTP_403_FORBIDDEN
+        return json.dumps({"code": "not allowed"}), status.HTTP_403_FORBIDDEN
 
 
 def add_coupon_to_cart(m2_api, coupon, cart_id, shop_id):

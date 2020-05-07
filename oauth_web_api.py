@@ -37,7 +37,6 @@ class OauthWebAPI:
         y = json.dumps(code)
 
         r = requests.post(url=request_token_url, auth=self.oauth, data=y, headers={'Content-Type': 'application/json'})
-
         coupon = r.content.decode('utf-8')
 
         if coupon is None:
@@ -52,7 +51,6 @@ class OauthWebAPI:
             cart_link = 'guest-carts/' + cart_id + '/coupons/' + coupon_code
 
         request_token_url = self.base_request_url + cart_link
-
         r = requests.put(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
 
         return r.content == b'true'
