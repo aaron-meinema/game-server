@@ -1,4 +1,4 @@
-import oauth_web_api
+from oauth_web_api import OauthWebAPI
 import json
 import database.db_queries as db
 
@@ -10,24 +10,14 @@ app = FlaskAPI(__name__)
 CORS(app)
 
 
-@app.route("/<string:shop>/<int:score>/<string:cart_id>", methods=['POST'])
-def category_game_finished_add_to_cart(shop, score, cart_id):
-    if request.environ['HTTP_ORIGIN'] is not None:
-        shop_id, res_owner_key, res_owner_secret, client_key, client_secret, coupon_code_id = \
-            get_code_id_corresponding_to_score(request.environ['HTTP_ORIGIN'], shop, score)
-        if coupon_code_id is not None:
-            m2_api = oauth_web_api.OauthWebAPI(res_owner_key, res_owner_secret, client_key, client_secret)
-            coupon = get_coupon_for_cart_id(cart_id, m2_api, coupon_code_id, shop_id, score)
-            if coupon is None:
-                return '-1', status.HTTP_403_FORBIDDEN
-            elif isinstance(coupon, str):
-                if add_coupon_to_cart(m2_api, coupon, cart_id, shop_id):
-                    return json.dumps({"code": "added"}), status.HTTP_201_CREATED
-                else:
-                    return json.dumps({"code": str(coupon)}), status.HTTP_200_OK
-            else:
-                return json.dumps({"code": str(coupon[0])}), status.HTTP_200_OK
-
+@app.route("/<string:shop>/<string:cart_id>/<int:score>", methods=['POST'])
+def category_game_finished_add_to_cart(shop, cart_id, score):
+    shop_id, res_owner_key, res_owner_secret, client_key, client_secret, coupon_code_id = \
+        get_code_id_corresponding_to_score(request.environ['HTTP_ORIGIN'], shop, score)
+    if coupon_code_id is not None:
+        m2_api = OauthWebAPI(res_owner_key, res_owner_secret, client_key, client_secret)
+        coupon = get_coupon_for_cart_id(cart_id, m2_api, coupon_code_id, shop_id, score)
+        return check_valid_coupon(coupon, m2_api, cart_id, shop_id)
     else:
         return json.dumps({"code": "not allowed"}), status.HTTP_403_FORBIDDEN
 
@@ -37,7 +27,7 @@ def get_coupon_in_cart(shop, cart_id):
     shop_id, res_owner_key, res_owner_secret, client_key, client_secret = \
         get_shop_data(shop, request.environ['HTTP_ORIGIN'])
     if shop_id is not None:
-        m2_api = oauth_web_api.OauthWebAPI(res_owner_key, res_owner_secret, client_key, client_secret)
+        m2_api = OauthWebAPI(res_owner_key, res_owner_secret, client_key, client_secret)
         coupon_code = check_cart_id_for_coupon(cart_id, shop_id, m2_api)
         if coupon_code is not None:
             return json.dumps({"cart_coupon": str(coupon_code)}), status.HTTP_409_CONFLICT
@@ -48,7 +38,7 @@ def get_coupon_in_cart(shop, cart_id):
 
 
 def add_coupon_to_cart(m2_api, coupon, cart_id, shop_id):
-    if m2_api.add_coupon_to_cart(cart_id, coupon):
+    if m2_api.added_coupon_to_cart(cart_id, coupon):
         insert_coupon_with_cart_id_in_db(cart_id, shop_id, coupon)
         return True
     else:
@@ -81,6 +71,18 @@ def check_cart_id_for_coupon(cart_id, shop, m2_api):
         else:
             return coupon_in_user_cart
     return db.select_coupon_with_cart_id(cart_id, shop)
+
+
+def check_valid_coupon(coupon, m2_api, cart_id, shop_id):
+    if coupon is None:
+        return json.dumps({"code": "Not Allowed"}), status.HTTP_403_FORBIDDEN
+    elif isinstance(coupon, str):
+        if add_coupon_to_cart(m2_api, coupon, cart_id, shop_id):
+            return json.dumps({"code": "added"}), status.HTTP_201_CREATED
+        else:
+            return json.dumps({"code": str(coupon)}), status.HTTP_200_OK
+    else:
+        return json.dumps({"code": str(coupon[0])}), status.HTTP_200_OK
 
 
 def insert_score_in_db(score, shop_id):

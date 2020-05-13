@@ -3,24 +3,25 @@ import oauth_web_api
 
 m2_api = oauth_web_api
 # opzoeken welk cart_id ik heb, of via api cart aanmaken en aan dit id geven
+cart_id = 20
 
 def test_category_game_finished_add_to_cart_response_200():
-    response = requests.post('http://localhost:3000/didi/500/4')
+    response = requests.post('http://localhost:3000/didi/500/20')
     assert response.status_code == 200
 
 
 def test_category_game_finished_add_to_cart_wrong_category_response_405():
-    response = requests.post('http://localhost:3000/didi/500/4')
+    response = requests.post('http://localhost:3000/didi/500/20')
     assert response.status_code == 405
 
 
 def test_category_game_finished_add_to_cart_low_score_response_204():
-    response = requests.post('http://localhost:3000/didi/1/4')
+    response = requests.post('http://localhost:3000/didi/1/20')
     assert response.status_code == 204
 
 
 def test_category_game_finished_add_to_cart_low_score_response_20():
-    response = requests.post('http://localhost:3000/didi/1/4')
+    response = requests.post('http://localhost:3000/didi/1/20')
     assert response.status_code == 204
 
 

@@ -2,7 +2,7 @@ import mysql.connector
 from mysql.connector import errorcode
 
 
-def getConnection():
+def get_connection():
     try:
         cnx = mysql.connector.connect(user='root',
                                     database='gamificationwebshop')
@@ -17,10 +17,10 @@ def getConnection():
         return cnx
 
 
-def closeConnection(connection):
+def close_connection(connection):
     connection.close()
 
 
-def closeInsertConnection(connection):
+def close_insert_connection(connection):
     connection.commit()
     connection.close()

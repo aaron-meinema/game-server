@@ -11,12 +11,11 @@ class OauthWebAPI:
         self.resource_owner_secret = res_owner_secret
         self.client_key = client_key
         self.client_secret = client_secret
-        self.oauth = OAuth1(client_key, client_secret=client_secret, resource_owner_key=res_owner_key,
+        self.oauth = OAuth1(client_key=client_key, client_secret=client_secret, resource_owner_key=res_owner_key,
                             resource_owner_secret=res_owner_secret)
 
     def send_coupon_request(self, coupon_code_id):
-        # rule_id uit db
-        code = {
+        coupon_spec = {
             "couponSpec": {
                 "rule_id": coupon_code_id,
                 "format": "",
@@ -34,35 +33,42 @@ class OauthWebAPI:
         request_token_url = self.base_request_url + coupon_link
 
         # convert into JSON:
-        y = json.dumps(code)
+        payload = json.dumps(coupon_spec)
 
-        r = requests.post(url=request_token_url, auth=self.oauth, data=y, headers={'Content-Type': 'application/json'})
-        coupon = r.content.decode('utf-8')
+        response = requests.post(url=request_token_url, auth=self.oauth, data=payload,
+                                 headers={'Content-Type': 'application/json'})
+        coupon = response.content.decode('utf-8')
 
-        if coupon is None:
-            return ""
-        else:
+        if response.status_code == 200:
             return coupon[2:-2]
-
-    def add_coupon_to_cart(self, cart_id, coupon_code):
-        if cart_id.isdigit():
-            cart_link = 'carts/' + cart_id + '/coupons/' + coupon_code
         else:
-            cart_link = 'guest-carts/' + cart_id + '/coupons/' + coupon_code
+            return None
 
-        request_token_url = self.base_request_url + cart_link
-        r = requests.put(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
+    def added_coupon_to_cart(self, cart_id, coupon_code):
+        if cart_id.isdigit():
+            request_token_url = self.base_request_url + 'carts/' + cart_id + '/coupons/' + coupon_code
+        else:
+            request_token_url = self.base_request_url + 'guest-carts/' + cart_id + '/coupons/' + coupon_code
 
-        return r.content == b'true'
+        response = requests.put(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
+
+        return response.status_code == 200
+        # return response.content == b'true'
 
     def get_coupon_in_cart(self, cart_id):
         request_token_url = self.base_request_url + 'carts/' + cart_id + '/coupons'
 
-        r = requests.get(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
-        return r.content
+        response = requests.get(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
+        if response.status_code == 200:
+            return response.content
+        else:
+            return None
 
     def get_cart_items(self, cart_id):
         request_token_url = self.base_request_url + 'carts/' + cart_id
 
-        r = requests.get(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
-        return r.content
+        response = requests.get(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
+        if response.status_code == 200:
+            return response.content
+        else:
+            return None
