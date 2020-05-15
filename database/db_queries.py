@@ -1,11 +1,11 @@
 from database import db_connection
 
 
-def get_coupon_id_webshop(http_origin, shop, score):
+def get_coupon_id_webshop(shop, score):
     conn = db_connection.get_connection()
     cursor = conn.cursor()
 
-    shop_data = select_shop_info(http_origin, shop)
+    shop_data = select_shop_info(shop)
 
     if shop_data is None:
         return None
@@ -20,15 +20,14 @@ def get_coupon_id_webshop(http_origin, shop, score):
         return None
 
 
-def select_shop_info(http_origin, shop):
+def select_shop_info(shop):
     conn = db_connection.get_connection()
     cursor = conn.cursor()
     get_shop = ("SELECT id, resource_owner_key, resource_owner_secret, client_key, client_secret "
                 "FROM shop "
-                "WHERE game_origin = %s AND name = %s")
+                "WHERE name = %(shop)s")
 
-    shop_info = (http_origin, shop)
-    cursor.execute(get_shop, shop_info)
+    cursor.execute(get_shop, {'shop': shop})
     shop_data = cursor.fetchone()
 
     return shop_data
@@ -36,8 +35,8 @@ def select_shop_info(http_origin, shop):
 
 def select_catalog_coupon_id_with_score(cursor, shop_id, score):
     get_catalog_coupon_id = ("SELECT catalog_coupon_id "
-                     "FROM available_code "
-                     "WHERE shop_id = %s AND active = 1 AND %s BETWEEN min_score AND max_score")
+                             "FROM available_code "
+                             "WHERE shop_id = %s AND active = 1 AND %s BETWEEN min_score AND max_score")
 
     coupon_info = (shop_id, score)
     cursor.execute(get_catalog_coupon_id, coupon_info)
