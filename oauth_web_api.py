@@ -15,7 +15,7 @@ class OauthWebAPI:
                             resource_owner_secret=res_owner_secret)
 
     def send_coupon_request(self, coupon_code_id):
-        coupon_spec = {
+        payload = json.dumps({
             "couponSpec": {
                 "rule_id": coupon_code_id,
                 "format": "",
@@ -27,13 +27,10 @@ class OauthWebAPI:
                 "delimiter": "",
                 "extension_attributes": {}
             }
-        }
+        })
 
         coupon_link = 'coupons/generate'
         request_token_url = self.base_request_url + coupon_link
-
-        # convert into JSON:
-        payload = json.dumps(coupon_spec)
 
         response = requests.post(url=request_token_url, auth=self.oauth, data=payload,
                                  headers={'Content-Type': 'application/json'})
@@ -53,7 +50,6 @@ class OauthWebAPI:
         response = requests.put(url=request_token_url, auth=self.oauth, headers={'Content-Type': 'application/json'})
 
         return response.status_code == 200
-        # return response.content == b'true'
 
     def get_coupon_in_cart(self, cart_id):
         request_token_url = self.base_request_url + 'carts/' + cart_id + '/coupons'
