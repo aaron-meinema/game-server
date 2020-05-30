@@ -1,5 +1,4 @@
 from oauth_web_api import OauthWebAPI
-import json
 import database.db_queries as db
 
 from flask_cors import CORS
@@ -26,7 +25,7 @@ class PostScore(Resource):
             coupon = self.get_coupon_for_cart_id(coupon_code_id)
             return self.check_valid_coupon(coupon)
         else:
-            return json.dumps({"code": "Er is iets fout gegaan, probeer het later opnieuw."}), status.HTTP_403_FORBIDDEN
+            return {"code": "Er is iets fout gegaan, probeer het later opnieuw."}, status.HTTP_403_FORBIDDEN
 
     def init_class_variables(self, cart_id, score):
         self.cart_id = cart_id
@@ -45,16 +44,15 @@ class PostScore(Resource):
 
     def check_valid_coupon(self, coupon):
         if coupon is None:
-            return json.dumps({"code": "Er is iets fout gegaan, probeer het later opnieuw."}), status.HTTP_403_FORBIDDEN
+            return {"code": "Er is iets fout gegaan, probeer het later opnieuw."}, status.HTTP_403_FORBIDDEN
         elif isinstance(coupon, str):
             if self.add_coupon_to_cart(coupon):
-                return json.dumps({
-                                      "code": "De kortingscode is toegevoegd aan de winkelwagen. "
-                                              "Druk op volgende om verder te gaan."}), status.HTTP_201_CREATED
+                return {"code": "De kortingscode is toegevoegd aan de winkelwagen. "
+                                           "Druk op volgende om verder te gaan."}, status.HTTP_201_CREATED
             else:
-                return json.dumps({"code": "Gewonnen couponcode is: " + str(coupon)}), status.HTTP_200_OK
+                return {"code": "Gewonnen couponcode is: " + str(coupon)}, status.HTTP_200_OK
         else:
-            return json.dumps({"code": "Gewonnen couponcode is: " + str(coupon[0])}), status.HTTP_200_OK
+            return {"code": "Gewonnen couponcode is: " + str(coupon[0])}, status.HTTP_200_OK
 
     def add_coupon_to_cart(self, coupon):
         if self.m2_api.added_coupon_to_cart(self.cart_id, coupon):
@@ -79,12 +77,12 @@ class GetCouponInCart(Resource):
             m2_api = OauthWebAPI(res_owner_key, res_owner_secret, client_key, client_secret)
             coupon_code = check_cart_id_for_coupon(cart_id, shop_id, m2_api)
             if coupon_code is not None:
-                return json.dumps({"response_text": "Er zit al een coupon in de winkelwagen. Game "
-                                                  "spelen voor korting is niet mogelijk."}), status.HTTP_409_CONFLICT
+                return {'response_text': 'Er zit al een coupon in de winkelwagen. '
+                                         'Game spelen voor korting is niet mogelijk.'}, status.HTTP_409_CONFLICT
             else:
-                return json.dumps({"response_text": "empty"}), status.HTTP_200_OK
+                return {"response_text": "empty"}, status.HTTP_200_OK
         else:
-            return json.dumps({"response_text": "Er is iets fout gegaan. Probeer het later opnieuw"}), status.HTTP_403_FORBIDDEN
+            return {"response_text": "Er is iets fout gegaan. Probeer het later opnieuw"}, status.HTTP_403_FORBIDDEN
 
 
 api.add_resource(PostScore, '/<string:shop>/<string:cart_id>/<int:score>')
