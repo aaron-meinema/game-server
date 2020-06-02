@@ -70,7 +70,7 @@ def select_coupon_with_cart_id(cart_id, shop_id):
 def insert_score_with_shop(score, shop_id):
     conn = db_connection.get_connection()
     cursor = conn.cursor()
-    print(score, shop_id)
+
     insert_score = ("INSERT INTO high_score (score, shop_id) "
                     "VALUES (%s, %s)")
     insert_values = (score, shop_id)
@@ -82,7 +82,6 @@ def insert_score_with_shop(score, shop_id):
 def insert_cart_id_with_coupon(cart_id, shop_id, coupon_code, automatic_added):
     conn = db_connection.get_connection()
     cursor = conn.cursor()
-    print(cart_id, coupon_code)
 
     insert_cart_id = ("INSERT INTO used_cart (cart_id, shop_id, coupon_code, automatic_added)"
                       "VALUES (%s, %s, %s, %s)")
