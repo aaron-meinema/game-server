@@ -9,7 +9,7 @@ cart_id = 20
 
 
 def test_game_finished_coupon_added_to_cart():
-    response = requests.post('http://localhost:3000/didi/500/20')
+    response = requests.post('http://localhost:3000/didi/20/500')
     assert response.status_code == 201
 
 
